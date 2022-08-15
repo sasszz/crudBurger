@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <!-- CSS Bootstrap Import -->
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+    <!-- linking a javascript file -->
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Flask App</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="center">Add {{topping.topping_name}} to a Burger</h2>
+                <form action='/add/topping' method='POST'>
+                <div class="vstack gap-2 col-md-5 mx-auto">
+                    <input type="hidden" name="topping_id" value="{{topping.id}}">
+                    <select id="burger" name="burger_id">
+                        {% for burger in burgers %}
+                        {% if burger.name not in on_this_burger %}
+                        <option value="{{burger.id}}">{{burger.name}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Add to Burger">
+                </form>
+                <p><a href='/'>Home</a></p>
+            </div>
+        </div>
+        <div class="col">
+            <h2>{{topping.topping_name}}</h2>
+            <p>Found on:</p>
+            {% for burger in topping.on_burgers %}
+            <li>{{burger.name}}</li>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

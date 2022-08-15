@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <!-- CSS Bootstrap Import -->
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx' crossorigin='anonymous'>
+    <!-- linking a javascript file -->
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- linking a css style sheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Flask App</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="center">
+                    <h2>New Burger</h2>
+                </div>
+                <form action='/create/burger' method='post'>
+                    <div class="vstack gap-2 col-md-5 mx-auto">
+                        <label for='name'>Name:</label>
+                        <input type='text' name='name'>
+                        <label for='bun'>Bun:</label>
+                        <input type='text' name='bun'>
+                        <label for='meat'>Meat:</label>
+                        <input type='text' name='meat'>
+                        <label for='calories'>Calories:</label>
+                        <input type='text' name='calories'>
+                        <label for="restaurants">Restaurant:</label>
+                        <select id="restaurant" name="restaurants_id">
+                            {% for restaurant in restaurants %}
+                            <option value="{{restaurant.id}}">{{restaurant.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="Create Burger">
+                    </form>
+                    <li><a href="/toppings">Create Topping</a></li>
+                    <li><a href="/restaurants">Add Restaurant</a></li>
+                    </div>
+            </div>
+            <div class="col">
+                <!-- linking an image -->
+                <img src="{{ url_for('static', filename='imgs/burger.jpg') }}">
+                <h2>All Burgers:</h2>
+                {% for burger in burgers %}
+                <li><a href="/burgers/{{burger.id}}">{{burger.name}}</a></li>
+                {% endfor %}
+                <h2>All Restaurants:</h2>
+                {% for restaurant in restaurants %}
+                <li><a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a></li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

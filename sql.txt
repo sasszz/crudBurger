@@ -1,0 +1,31 @@
+Everything from toppings table once where it is not on given burger
+
+SELECT * FROM add_ons JOIN toppings ON add_ons.topping_id = toppings.id WHERE add_ons.burger_id != %(burgers.id)s
+
+SELECT * FROM toppings JOIN add_ons ON toppings.id = add_ons.topping_id WHERE add_ons.burger_id != %(burgers.id)s
+
+
+SELECT * FROM toppings JOIN add_ons ON toppings.id = add_ons.topping_id WHERE add_ons.burger_id != 1
+
+
+
+SELECT add_ons.topping_id FROM add_ons WHERE add_ons.burger_id = 
+
+
+
+
+# ! GET TOPPINGS NOT ON BURGER
+    @classmethod
+    def get_except(cls,data):
+        query = "SELECT * FROM add_ons JOIN toppings ON add_ons.topping_id = toppings.id WHERE add_ons.burger_id != burgers.id"
+        result = connectToMySQL(DATABASE).query_db(query, data)
+        topping = Topping(result[0])
+        return topping
+
+
+
+Everything from burgers table once where it does not have a given topping
+
+SELECT * FROM add_ons JOIN burgers ON add_ons.burger_id = toppings.id WHERE add_ons.topping_id != toppings.id
+
+# ! GET BURGERS THAT DON'T HAVE TOPPING

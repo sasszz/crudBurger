@@ -67,5 +67,5 @@ class Burger:
     # ! EDIT BASICS
     @classmethod
     def edit_burger(cls, data):
-        query = "UPDATE myburgers SET name = %(name)s, bun = %(bun)s, meat = %(meat)s WHERE id = %(burger_id)s;"
+        query = "UPDATE myburgers SET name = %(name)s, bun = %(bun)s, meat = %(meat)s, calories = %(calories)s WHERE id = %(burger_id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
